@@ -21,10 +21,17 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *********************************************************************/
 
+#ifdef _WIN32
+  #include <ctime>
+  // Define a dummy sysconf for Windows (typically 100 clock ticks per second)
+  #define sysconf(x) 100
+#else
+  #include <sys/times.h>
+#endif
+
 #include <algorithm>
 #include <iostream>
 #include <set>
-#include <sys/times.h>
 
 #include "IC3.h"
 #include "Solver.h"
@@ -787,9 +794,13 @@ namespace IC3 {
     clock_t startTime, satTime;
     int nCoreReduced, nAbortJoin, nAbortMic;
     clock_t time() {
+#ifdef _WIN32
+      return std::clock();
+#else
       struct tms t;
       times(&t);
       return t.tms_utime;
+#endif
     }
     clock_t timer;
     void startTimer() { timer = time(); }
