@@ -59,7 +59,7 @@ int main(int argc, char ** argv) {
   // read AIGER model
   aiger * aig = aiger_init();
   FILE *file = fopen("./aag_files/simple.aag", "r+");
-  const char * msg = aiger_read_from_file(aig, file);
+  const char * msg = aiger_read_from_file(aig, stdin);
   if (msg) {
     cout << msg << endl;
     return -1;
