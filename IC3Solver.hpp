@@ -1,4 +1,0 @@
-#ifndef IC3SOLVER_HPP
-#define IC3SOLVER_HPP
-
-#endif //IC3SOLVER_HPP
